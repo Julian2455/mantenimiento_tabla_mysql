@@ -43,27 +43,27 @@ print("""<ul class="nav nav-tabs">
 print("""<form class="row g-3" method="get" action="cargasql.py">
     <div class="col-md-3">
       <label for="nombre" class="form-label">Nombre</label>
-      <input type="text" class="form-control" name="nombre" id="nombre">
+      <input type="text" class="form-control" name="nombre" id="nombre" required>
     </div>
     <div class="col-md-3">
       <label for="apellido" class="form-label">Apellido</label>
-      <input type="text" class="form-control" name="apellido" id="apellido">
+      <input type="text" class="form-control" name="apellido" id="apellido" required>
       </div>
     <div class="col-md-3">
         <label for="calle" class="form-label">Calle</label>
-        <input type="text" class="form-control" name="calle" id="calle">
+        <input type="text" class="form-control" name="calle" id="calle" required>
       </div>
       <div class="col-md-2">
         <label for="numcalle" class="form-label">N°</label>
-        <input type="number" class="form-control" name="numcalle" id="numcalle">
+        <input type="number" class="form-control" name="numcalle" id="numcalle" required>
       </div>
     <div class="col-3">
       <label for="telefono" class="form-label">Telefono</label>
-      <input type="number" class="form-control" name="telefono" id="telefono">
+      <input type="number" class="form-control" name="telefono" id="telefono" required>
     </div>
     <div class="col-md-3">
       <label for="correo" class="form-label">Correo electronico</label>
-      <input type="email" class="form-control" name="correo" id="correo">
+      <input type="email" class="form-control" name="correo" id="correo" required>
     </div>
     <div class="col-12">
       <button type="submit" class="btn btn-primary">Cargar usuario</button>

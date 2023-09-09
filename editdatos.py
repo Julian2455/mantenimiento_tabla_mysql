@@ -30,15 +30,12 @@ print("<body>")
 print('<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>')
 datos=cgi.FieldStorage()
 datos_editar=obtener_id(datos)
-print(datos_editar)
 dire=datos_editar[4].split(" ")
 numero=dire[-1]
 lista=dire[:-1]
 nombre=""
 for x in lista:
   nombre+=x+" "
-print(nombre)
-print(dire)
 print("""<ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link"  href="abm.py">Usuarios registrados</a>
@@ -56,27 +53,27 @@ print("""<ul class="nav nav-tabs">
 print("""<form class="row g-3" method="get" action="confirm.py">
     <div class="col-md-3">
       <label for="nombre" class="form-label">Nombre</label>""")
-print(f'<input type="text" class="form-control" name="nombre" id="nombre" value="{datos_editar[1]}">')
+print(f'<input type="text" class="form-control" name="nombre" id="nombre" value="{datos_editar[1]}" required>')
 print("""</div>
     <div class="col-md-3">
       <label for="apellido" class="form-label">Apellido</label>""")
-print(f'<input type="text" class="form-control" name="apellido" id="apellido" value="{datos_editar[2]}">')
+print(f'<input type="text" class="form-control" name="apellido" id="apellido" value="{datos_editar[2]}" required>')
 print("""</div>
     <div class="col-md-3">
         <label for="calle" class="form-label">Calle</label>""")
-print(f'<input type="text" class="form-control" name="calle" id="calle" value="{nombre}">')
+print(f'<input type="text" class="form-control" name="calle" id="calle" value="{nombre}" required>')
 print("""</div>
       <div class="col-md-2">
         <label for="numcalle" class="form-label">N°</label>""")
-print(f'<input type="number" class="form-control" name="numcalle" id="numcalle" value="{numero}">')
+print(f'<input type="number" class="form-control" name="numcalle" id="numcalle" value="{numero}" required>')
 print("""</div>
     <div class="col-3">
       <label for="telefono" class="form-label">Telefono</label>""")
-print(f'<input type="number" class="form-control" name="telefono" id="telefono" value="{datos_editar[3]}">')
+print(f'<input type="number" class="form-control" name="telefono" id="telefono" value="{datos_editar[3]}" required>')
 print("""</div>
     <div class="col-md-3">
       <label for="correo" class="form-label">Correo electronico</label>""")
-print(f'<input type="email" class="form-control" name="correo" id="correo" value="{datos_editar[5]}">')
+print(f'<input type="email" class="form-control" name="correo" id="correo" value="{datos_editar[5]}" required>')
 print("""</div>
       <div class="col-md-2">
       <label for="id_user" class="form-label">ID</label>""")
