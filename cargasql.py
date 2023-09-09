@@ -43,7 +43,7 @@ print("""<ul class="nav nav-tabs">
 print("""<form class="row g-3" method="get" action="cargasql.py">
     <div class="col-md-3">
       <label for="nombre" class="form-label">Nombre</label>
-      <input type="text" class="form-control" name="nombre" id="nombre" required>
+      <input type="text" class="form-control" name="nombre" id="nombre" required autofocus>
     </div>
     <div class="col-md-3">
       <label for="apellido" class="form-label">Apellido</label>

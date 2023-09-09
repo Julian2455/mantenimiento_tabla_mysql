@@ -52,7 +52,7 @@ print("""<form method="get" action="bajasql.py">
     <tbody>""")
 for base in cursor1:
     print("<tr>")
-    print(f'<th scope="row"><input class="form-check-input me-1 bg-danger" type="radio" name="id" value="{base[0]}" id="{base[0]}"></th>')
+    print(f'<th scope="row"><input class="form-check-input me-1 bg-danger" type="radio" name="id" value="{base[0]}" id="{base[0]}" required></th>')
     for x in base:
         print(f'<td>{x}</td>')
     print("</tr>")
