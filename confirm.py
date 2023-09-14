@@ -1,6 +1,5 @@
 import cgi
 import mysql.connector
-#CREO QUE EL ERROR ESTA EN LA ID QUE NO LA ENVIA
 def actualizar(valores):
     conexion=mysql.connector.connect(host="localhost",user="julian",password="123456789",database="abm_python")
     cursor=conexion.cursor()

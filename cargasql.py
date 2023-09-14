@@ -10,12 +10,26 @@ def cargar_datos(valores):
     calle=valores["calle"].value
     num=valores["numcalle"].value
     correo=valores["correo"].value
+    idprovincia = int(valores["id_prov"].value)
     nya=f'{nom} {ap}'
     callenum=f'{calle} {num}'
-    linea=f"INSERT INTO `abm_python`.`proveedor` (`nombre_proveedor`, `telefono_proveedor`, `domicilio_proveedor`, `correo_proveedor`) VALUES ('{nya}', '{tel}', '{callenum}', '{correo}');"
+    linea=(f"INSERT INTO `abm_python`.`proveedor` (`nombre_proveedor`, `telefono_proveedor`, `domicilio_proveedor`, `correo_proveedor`, `provincia_proveedor`) VALUES ('{nya}', '{tel}', '{callenum}', '{correo}', '{idprovincia}');")
+    print(linea)
     cursor.execute(linea)
     conexion.commit()
     conexion.close()
+    
+
+  
+def lista_provincias():
+    conexion=mysql.connector.connect(host="localhost",user="julian",password="123456789",database="abm_python")
+    cursor=conexion.cursor()
+    cursor.execute("select * from provincias")
+    lista=[]
+    for x in cursor:
+      lista.append(x)
+    return lista
+
 
 print("Content-Type: text/html") 
 print()
@@ -40,6 +54,7 @@ print("""<ul class="nav nav-tabs">
     <a class="nav-link" href="bajasql.py">Eliminar usuario</a>
   </li>
 </ul>""")
+prov=lista_provincias()
 print("""<form class="row g-3" method="get" action="cargasql.py">
     <div class="col-md-3">
       <label for="nombre" class="form-label">Nombre</label>
@@ -65,6 +80,15 @@ print("""<form class="row g-3" method="get" action="cargasql.py">
       <label for="correo" class="form-label">Correo electronico</label>
       <input type="email" class="form-control" name="correo" id="correo" required>
     </div>
+    <div class="col-md-3">
+      <label for="provincia" class="form-label">Provincia</label>
+      <select class="form-select" id="provincia" name="id_prov" aria-label="Default select example">
+      <option selected>Seleccione su provincia</option>""")
+for x in prov:
+  print(f'<option value="{x[0]}">{x[1]}</option>')
+print("""</select>
+    </div>""")
+print("""
     <div class="col-12">
       <button type="submit" class="btn btn-primary">Cargar usuario</button>
     </div>
