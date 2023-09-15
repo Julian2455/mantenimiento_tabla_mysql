@@ -10,9 +10,10 @@ def actualizar(valores):
     calle=valores["calle"].value
     num=valores["numcalle"].value
     correo=valores["correo"].value
+    id_provincia=valores["id_prov"].value
     nya=f'{nom} {ap}'
     callenum=f'{calle} {num}'
-    linea=f"UPDATE `abm_python`.`proveedor` SET `nombre_proveedor` = '{nya}',`telefono_proveedor` = '{tel}',`domicilio_proveedor` = '{callenum}',`correo_proveedor` = '{correo}' WHERE (`id_proveedor` = '{id}');"
+    linea=f"UPDATE `abm_python`.`proveedor` SET `nombre_proveedor` = '{nya}',`telefono_proveedor` = '{tel}',`domicilio_proveedor` = '{callenum}',`correo_proveedor` = '{correo}',`provincia_proveedor` = '{id_provincia}' WHERE (`id_proveedor` = '{id}');"
     cursor.execute(linea)
     conexion.commit()
     conexion.close()
@@ -21,7 +22,8 @@ def mostrar_act(valores):
   conexion=mysql.connector.connect(host="localhost",user="julian",password="123456789",database="abm_python")
   cursor=conexion.cursor()
   id=valores["id"].value
-  linea=f"select * from proveedor WHERE (`id_proveedor` = '{id}');"
+  #linea=f"select * from proveedor WHERE (`id_proveedor` = '{id}');"
+  linea=f"SELECT id_proveedor ,nombre_proveedor, telefono_proveedor, domicilio_proveedor, correo_proveedor, nombre_provincia FROM proveedor,provincias WHERE (`id_proveedor` = '{id}') and provincia_proveedor=idprovincia;"
   cursor.execute(linea)
   linea_act=[]
   for x in cursor:
@@ -65,6 +67,7 @@ print("""<table class="table">
         <th scope="col">Telefono</th>
         <th scope="col">Domicilio</th>
         <th scope="col">Email</th>
+        <th scope="col">Provincia</th>
       </tr>
     </thead>
     <tbody>""")

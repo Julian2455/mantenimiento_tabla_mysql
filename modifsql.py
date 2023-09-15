@@ -5,7 +5,7 @@ import mysql.connector
 print("Content-Type: text/html") 
 conexion1=mysql.connector.connect(host="localhost",user="julian",password="123456789",database="abm_python")
 cursor1=conexion1.cursor()
-cursor1.execute("select * from proveedor")
+cursor1.execute("SELECT id_proveedor ,nombre_proveedor, telefono_proveedor, domicilio_proveedor, correo_proveedor, nombre_provincia FROM proveedor,provincias where provincia_proveedor=idprovincia;")
 print()
 print("<html>")
 print('<head>')
@@ -39,6 +39,7 @@ print("""<form method="get" action="editdatos.py">
         <th scope="col">Telefono</th>
         <th scope="col">Domicilio</th>
         <th scope="col">Email</th>
+        <th scope="col">Provincia</th>
       </tr>
     </thead>
     <tbody>""")

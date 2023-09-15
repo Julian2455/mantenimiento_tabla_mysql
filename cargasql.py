@@ -14,7 +14,6 @@ def cargar_datos(valores):
     nya=f'{nom} {ap}'
     callenum=f'{calle} {num}'
     linea=(f"INSERT INTO `abm_python`.`proveedor` (`nombre_proveedor`, `telefono_proveedor`, `domicilio_proveedor`, `correo_proveedor`, `provincia_proveedor`) VALUES ('{nya}', '{tel}', '{callenum}', '{correo}', '{idprovincia}');")
-    print(linea)
     cursor.execute(linea)
     conexion.commit()
     conexion.close()

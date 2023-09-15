@@ -1,21 +1,36 @@
 import cgi
 import mysql.connector
 
-def obtener_id(datos):
-  conexion=mysql.connector.connect(host="localhost",user="julian",password="123456789",database="abm_python")
-  cursor=conexion.cursor()
-  id=datos["id"].value
-  linea=f'SELECT * FROM proveedor WHERE id_proveedor={id}'
-  cursor.execute(linea)
-  lista_datos=[]
-  for x in cursor:
-    for y in x:
-      lista_datos.append(y)
-  nom=lista_datos[1].split(" ")
-  lista=[lista_datos[0],nom[0],nom[1]]
-  for x in range(2,5):
-    lista.append(lista_datos[x])
-  return lista
+def obtener_datos(datos):
+    conexion=mysql.connector.connect(host="localhost",user="julian",password="123456789",database="abm_python")
+    cursor=conexion.cursor()
+    id=datos["id"].value
+    linea=f'SELECT id_proveedor, nombre_proveedor, telefono_proveedor, domicilio_proveedor, correo_proveedor, provincia_proveedor FROM proveedor WHERE id_proveedor={id}'
+    cursor.execute(linea)
+    lista_datos=[]
+    for x in cursor:
+      for y in x:
+        lista_datos.append(y)
+    nom=lista_datos[1].split(" ")
+    lista=[lista_datos[0],nom[0],nom[1]]
+    for x in range(2,6):
+      lista.append(lista_datos[x])
+    return lista
+
+def lista_provincias(id):
+    conexion=mysql.connector.connect(host="localhost",user="julian",password="123456789",database="abm_python")
+    cursor=conexion.cursor()
+    cursor.execute("select * from provincias")
+    lista=[]
+    for x in cursor:
+      lista.append(x)
+    linea=f"select * from provincias where idprovincia={id}"
+    cursor.execute(linea)
+    for x in cursor:
+       nom_prov=x
+    lista.remove(nom_prov)
+    return lista,nom_prov
+
 
 print("Content-Type: text/html") 
 conexion1=mysql.connector.connect(host="localhost",user="julian",password="123456789",database="abm_python")
@@ -29,13 +44,14 @@ print("</head>")
 print("<body>")
 print('<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>')
 datos=cgi.FieldStorage()
-datos_editar=obtener_id(datos)
+datos_editar=obtener_datos(datos)
 dire=datos_editar[4].split(" ")
 numero=dire[-1]
 lista=dire[:-1]
 nombre=""
 for x in lista:
   nombre+=x+" "
+prov,prov_user=lista_provincias(datos_editar[6])
 print("""<ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link"  href="abm.py">Usuarios registrados</a>
@@ -74,8 +90,16 @@ print("""</div>
     <div class="col-md-3">
       <label for="correo" class="form-label">Correo electronico</label>""")
 print(f'<input type="email" class="form-control" name="correo" id="correo" value="{datos_editar[5]}" required>')
-print("""</div>
-      <div class="col-md-2">
+print("""</div>""")
+print("""<div class="col-md-3">
+     <label for="provincia" class="form-label">Provincia</label>
+      <select class="form-select" id="provincia" name="id_prov" aria-label="Default select example">""")
+print(f'<option selected value="{prov_user[0]}">{prov_user[1]}</option>')     
+for x in prov:
+  print(f'<option value="{x[0]}">{x[1]}</option>')
+print("""</select>
+    </div>""")
+print("""<div class="col-md-2">
       <label for="id_user" class="form-label">ID</label>""")
 print(f'<input type="number" class="form-control" name="id" id="id_user" value="{datos_editar[0]}" disabled>')
 print(f'<input type="hidden" name="id" value="{datos_editar[0]}">')
